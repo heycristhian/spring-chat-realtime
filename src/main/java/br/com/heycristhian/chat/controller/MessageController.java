@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class MessageController {
 
-    @PostMapping
-    public ResponseEntity<Void> sendMessage(@RequestBody @Valid Message message) {
-
-    }
+//    @PostMapping
+//    public ResponseEntity<Void> sendMessage(@RequestBody @Valid Message message) {
+//
+//    }
 }
