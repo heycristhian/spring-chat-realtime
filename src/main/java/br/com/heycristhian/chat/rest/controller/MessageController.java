@@ -1,4 +1,4 @@
-package br.com.heycristhian.chat.controller;
+package br.com.heycristhian.chat.rest.controller;
 
 import br.com.heycristhian.chat.model.Message;
 import jakarta.validation.Valid;
