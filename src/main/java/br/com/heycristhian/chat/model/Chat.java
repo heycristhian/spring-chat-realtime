@@ -17,6 +17,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -34,8 +35,9 @@ public class Chat {
 
     private String chatName;
 
+    @Builder.Default
     @OneToMany(mappedBy = "chat", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Message> messages;
+    private List<Message> messages = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(
@@ -47,6 +49,10 @@ public class Chat {
 
     @Column(nullable = false, name = "created_at")
     private Instant createdAt;
+
+    public void addMessage(Message message) {
+        this.messages.add(message);
+    }
 
     @PrePersist
     protected void onCreate() {
