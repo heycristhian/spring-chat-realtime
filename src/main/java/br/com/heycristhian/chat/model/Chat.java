@@ -40,6 +40,7 @@ public class Chat {
     private List<Message> messages = new ArrayList<>();
 
     @ManyToMany
+    @Builder.Default
     @JoinTable(
             name = "chat_users",
             joinColumns = @JoinColumn(name = "chat_id"),
@@ -51,6 +52,7 @@ public class Chat {
     private Instant createdAt;
 
     public void addMessage(Message message) {
+        message.setChat(this);
         this.messages.add(message);
     }
 

@@ -56,11 +56,13 @@ cli -> api ++: \n\
         2 \n\
     ] \n\
 } \n
-|||
+note right of api: Log request received
 
 api -> api: Check request body
+note right of api: Log request body validation started
 
 break#d9d9d9 #f2f2f2 Inconsistent data
+note right of api: Log validation errors
 |||
 
 api --> cli: \
@@ -98,8 +100,10 @@ api --> cli: \
 end 
 
 api -> api: Checks if the chat already exists
+note right of api: Log check if chat exists
 
 break#d9d9d9 #f2f2f2 Inconsistent data
+note right of api: Log chat already exists
 |||
 
 api --> cli: \
@@ -115,8 +119,10 @@ api --> cli: \
 end 
 
 api -> api: Checks if the users already exists
+note right of api: Log check if users exist
 
 break#d9d9d9 #f2f2f2 Inconsistent data
+note right of api: Log user does not exist
 |||
 
 api --> cli: \
@@ -134,16 +140,19 @@ end
 api -> database ++: \
 \n\
 Insert data
+note right of database: Log insert data
 |||
 
 database --> api: \
 Exception
+note right of database: Log data insert exception
 |||
 
 database -> api --: \
 \n\
 Data saved successfully\n\
 \n\
+note right of database: Log data saved successfully
 |||
 
 api -> cli: \
@@ -151,5 +160,6 @@ api -> cli: \
 { \n\
     "chatId": 1 \n\
 } \n\
+note right of api: Log response sent
 
 @enduml
