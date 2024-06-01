@@ -66,7 +66,7 @@ note right of api: Log validation errors
 |||
 
 api --> cli: \
-<b>HTTP 400 (Bad Request)</b> \n\
+<b>HTTP 400 (BAD REQUEST)</b> \n\
 \n\
 { \n\
     "code": 400, \n\
@@ -107,7 +107,7 @@ note right of api: Log chat already exists
 |||
 
 api --> cli: \
-<b>HTTP 400 (Bad Request)</b> \n\
+<b>HTTP 400 (BAD REQUEST)</b> \n\
 \n\
 { \n\
     "code": 400,  \n\
@@ -126,7 +126,7 @@ note right of api: Log user does not exist
 |||
 
 api --> cli: \
-<b>HTTP 400 (Bad Request)</b> \n\
+<b>HTTP 400 (BAD REQUEST)</b> \n\
 \n\
 { \n\
     "code": 400,  \n\
@@ -152,14 +152,12 @@ database -> api --: \
 \n\
 Data saved successfully\n\
 \n\
-note right of database: Log data saved successfully
 |||
 
-api -> cli: \
-<b>HTTP 201 (Created)</b> \n\
+api -> cli --: \
+<b>HTTP 201 (CREATED)</b> \n\
 { \n\
     "chatId": 1 \n\
 } \n\
-note right of api: Log response sent
 
 @enduml

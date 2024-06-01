@@ -38,91 +38,73 @@ end box
   ----------------------------------------------------------------------'/
 title \n\
 CHAT REAL TIME \n\
-CREATE USER
+LIST CHATS BY USER
 
 /'----------------------------------------------------------------------
   FLUXO
   ----------------------------------------------------------------------'/
 
 cli -> api ++: \n\
-<b>Endpoint</b>: /v1/users \n\
-<b>Method</b>: POST \n\
-<b>Body</b>: \n\
-{\n\
-    "username": "heycristhian@gmail.com",\n\
-    "name": "Cristhian",\n\
-    "lastName": "Dias"\n\
-}\n\
+<b>Endpoint</b>: /v1/chats/user/{id} \n\
+<b>Method</b>: GET \n\
 |||
 
-api -> api: Check request body
+api -> api: Checks if the users already exists
 
 break#d9d9d9 #f2f2f2 Inconsistent data
 |||
 
 api --> cli: \
-<b>HTTP 400 (Bad Request)</b> \n\
+<b>HTTP 400 (BAD REQUEST)</b> \n\
 \n\
 { \n\
     "code": 400, \n\
     "status": "BAD_REQUEST", \n\
-    "message": "There's an error in the request", \n\
+    "message": "User does not exists", \n\
     "correlationId": "8b775627-45cb-4bf9-9c41-1e779d95a6c7", \n\
-    "fields": [ \n\
-        { \n\
-            "field": "username", \n\
-            "message": "Cannot be blank" \n\
-        }, \n\
-        { \n\
-            "field": "name", \n\
-            "message": "Cannot be blank" \n\
-        }, \n\
-        { \n\
-            "field": "lastName", \n\
-            "message": "Cannot be blank" \n\
-        } \n\
-    ] \n\
   }
-|||
-end 
-
-api -> api: Checks if the username already exists
-
-break#d9d9d9 #f2f2f2 Inconsistent data
-|||
-
-api --> cli: \
-<b> HTTP 400 (BAD REQUEST) </b> \n\
-{ \n\
-    "code": 400,  \n\
-    "status": "BAD_REQUEST",  \n\
-    "message": "Username already exists",  \n\
-    "correlationId": "8b775627-45cb-4bf9-9c41-1e779d95a6c7" \n\
-} \n\
 |||
 end
 
 api -> database ++: \
 \n\
-Insert user
+Find all chats by userId
 |||
 
 database --> api: \
+\n\
 Exception
 |||
 
 database -> api --: \
-Users saved succesfully
+\n\
+All chats paged and ordered desc by message
 |||
 
 api -> cli --: \
-<b>HTTP 201 (CREATED)</b> \n\
-{\n\
-    "id": 1 \n\
-    "username": "heycristhian@gmail.com",\n\
-    "name": "Cristhian",\n\
-    "lastName": "Dias"\n\
-}
+\n\
+<b>HTTP 200 (OK)</b> \n\
+[ \n\
+    { \n\
+        "chatId": 1, \n\
+        "chatName": "Cristhia Dias", \n\
+        "message": { \n\
+            "lastUser": "Cristhian Dias", \n\
+            "lastMessage": "Ok then, see you tomorrow" \n\
+        } \n\
+    }, \n\
+    { \n\
+        "chatId": 2, \n\
+        "chatName": "Fulano de Tal", \n\
+        "toUser": { \n\
+            "fullname": "Fulano de Tal" \n\
+        }, \n\
+        "message": { \n\
+            "lastUser": "You", \n\
+            "lastMessage": "Are you sure about it?" \n\
+        } \n\
+    } \n\
+] \n\
 
 
 @enduml
